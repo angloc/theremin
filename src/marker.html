@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Distance Tracker - Markers</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .markers-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .marker-section {
+            text-align: center;
+        }
+
+        .marker-image {
+            width: 40vmin;
+            height: 40vmin;
+            max-width: 300px;
+            max-height: 300px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .markers-container {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .marker-image {
+                width: 45vmin;
+                height: 45vmin;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="markers-container">
+        <div class="marker-section">
+            <h2>AR Marker</h2>
+            <img src="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" 
+                 alt="Hiro Marker" 
+                 class="marker-image">
+            <p>Point your camera at this marker</p>
+        </div>
+        <div class="marker-section">
+            <h2>App QR Code</h2>
+            <div id="qrcode" class="marker-image"></div>
+            <p>Scan to open the application</p>
+        </div>
+    </div>
+    <script type="module">
+        import QRCode from 'qrcode';
+        
+        async function generateQRCode() {
+            try {
+                const baseUrl = window.location.href.replace('/marker', '');
+                const canvas = document.createElement('canvas');
+                
+                await QRCode.toCanvas(canvas, baseUrl, {
+                    width: 300,
+                    height: 300,
+                    margin: 1,
+                    color: {
+                        dark: '#000000',
+                        light: '#ffffff'
+                    }
+                });
+                
+                const qrcodeElement = document.getElementById('qrcode');
+                qrcodeElement.innerHTML = '';
+                qrcodeElement.appendChild(canvas);
+            } catch (error) {
+                console.error('Error generating QR code:', error);
+            }
+        }
+
+        generateQRCode();
+    </script>
+</body>
+</html>

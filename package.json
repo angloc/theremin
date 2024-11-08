@@ -1,0 +1,20 @@
+{
+  "name": "ar-distance-tracker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "export": "node scripts/export-project.js"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.3",
+    "three": "^0.158.0"
+  },
+  "devDependencies": {
+    "archiver": "^6.0.2",
+    "vite": "^5.0.0"
+  }
+}
